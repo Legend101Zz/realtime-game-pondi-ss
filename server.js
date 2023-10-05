@@ -6,3 +6,8 @@ app.use(express.static(__dirname + "/public"));
 const expressServer = app.listen(9000);
 
 const io = socketio(expressServer);
+
+module.exports = {
+  app,
+  io,
+};
