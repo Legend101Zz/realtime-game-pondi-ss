@@ -7,6 +7,8 @@ const expressServer = app.listen(9000);
 
 const io = socketio(expressServer);
 
+//This file creates servers and exports them
+
 module.exports = {
   app,
   io,
