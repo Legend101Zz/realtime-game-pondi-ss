@@ -8,9 +8,21 @@ player.locY = Math.floor(500 * Math.random() + 10); //vertical axis
 
 const draw = () => {
   // console.log("started");
+  //clears canvas each frame
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  //reset the context translate back to default
+  context.setTransform(1, 0, 0, 1, 0, 0);
+
+  //clamp the screen to players location
+  const camX = -player.locX + canvas.width / 2;
+  const camY = -player.locY + canvas.height / 2;
+  context.translate(camX, camY);
+
   context.beginPath();
   context.fillStyle = "rgb(255,0,0)";
   context.arc(player.locX, player.locY, 10, 0, 2 * Math.PI); //random X anbd Y are center of the arc
+  context.arc(200, 200, 10, 0, 2 * Math.PI);
   context.fill();
   context.lineWidth = 3; // giving width to our circle
   context.strokeStyle = "rgb(0,255,0)";
