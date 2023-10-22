@@ -7,10 +7,15 @@ const orbs = [];
 
 initGame();
 
+io.on("connect", (socket) => {
+  // gives game data to new joining player
+  socket.emit("init", {
+    orbs,
+  });
+});
+
 function initGame() {
   for (let i = 0; i < 500; i++) {
     orbs.push(new Orb());
   }
 }
-
-console.log(orbs);

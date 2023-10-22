@@ -7,6 +7,7 @@ const context = canvas.getContext("2d");
 canvas.width = wWidth;
 canvas.height = wHeight;
 const player = {};
+let orbs = [];
 
 const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
 const spawnModal = new bootstrap.Modal(document.querySelector("#spawnModal"));
