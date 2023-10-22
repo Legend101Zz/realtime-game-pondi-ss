@@ -25,3 +25,11 @@ document.querySelector(".name-form").addEventListener("submit", (e) => {
   spawnModal.show();
   console.log(player);
 });
+
+document.querySelector(".start-game").addEventListener("click", (e) => {
+  //hide the start modal
+  spawnModal.hide();
+  // show the hiddenStart elements
+  const elArray = Array.from(document.querySelectorAll(".hiddenOnStart"));
+  elArray.forEach((el) => el.removeAttribute("hidden"));
+});
