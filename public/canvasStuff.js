@@ -27,6 +27,14 @@ const draw = () => {
   context.lineWidth = 3; // giving width to our circle
   context.strokeStyle = "rgb(0,255,0)";
   context.stroke(); //draw the border
+  orbs.forEach((orby) => {
+    console.log(orby);
+    context.beginPath();
+    context.fillStyle = orby.color;
+    context.arc(orby.locX, orby.locY, orby.radius, 0, Math.PI * 2);
+    context.fill();
+  });
+
   requestAnimationFrame(draw);
 };
 canvas.addEventListener("mousemove", (event) => {
