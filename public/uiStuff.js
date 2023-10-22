@@ -21,6 +21,7 @@ document.querySelector(".name-form").addEventListener("submit", (e) => {
   e.preventDefault();
   //   console.log("hello");
   player.name = document.querySelector("#name-input").value;
+  document.querySelector(".player-name").innerHTML = player.name;
   loginModal.hide();
   spawnModal.show();
   console.log(player);
