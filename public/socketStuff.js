@@ -53,6 +53,9 @@ socket.on("updateLeaderBoard", (leaderBoardArray) => {
   });
   document.querySelector(".leader-board").innerHTML = "";
   leaderBoardArray.forEach((p) => {
+    if (!p.name) {
+      return;
+    }
     document.querySelector(
       ".leader-board"
     ).innerHTML += `<li class="leaderboard-player">${p.name} - ${p.score}</li>`;

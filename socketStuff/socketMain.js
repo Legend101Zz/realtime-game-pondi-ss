@@ -114,7 +114,14 @@ io.on("connect", (socket) => {
     }
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (reason) => {
+    //loop players with inactivity by id and remove them
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].socketId === socket.id) {
+        players.splice(i, 1, {});
+        playersForUsers.split(i, 1, {});
+      }
+    }
     //check to se if players is empty, then stop ticking
     if (players.length === 0) {
       clearInterval(tictokVar);
