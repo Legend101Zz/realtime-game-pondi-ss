@@ -18,19 +18,21 @@ const settings = {
   worldWidth: 500,
   worldHeight: 500,
 };
-
+let tictokVar;
 const players = [];
 
 initGame();
 
-//Issue an event to every connected socket , that is playing the game , 30 timees per second
-setInterval(() => {
-  io.to("game"); // send the event to the 'game' room
-}, 33);
-
 io.on("connect", (socket) => {
   // a player has connected
   socket.on("init", (playerObj, callBack) => {
+    if (players.length > 0) {
+      //Issue an event to every connected socket , that is playing the game , 30 timees per second
+      tictokVar = setInterval(() => {
+        io.to("game").emit("tick", players); // send the event to the 'game' room
+      }, 33);
+    }
+
     socket.join("game");
     // gives game data to new joining player
     const playerName = playerObj.playerName;
@@ -44,6 +46,12 @@ io.on("connect", (socket) => {
     players.push(player);
     // sends back orbs as acknowledge ment
     callBack(orbs);
+  });
+  socket.on("disconnect", () => {
+    //check to se if players is empty, then stop ticking
+    if (players.length === 0) {
+      clearInterval(tictokVar);
+    }
   });
 });
 
