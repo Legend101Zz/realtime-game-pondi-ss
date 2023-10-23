@@ -8,11 +8,12 @@ player.locY = Math.floor(500 * Math.random() + 10); //vertical axis
 
 const draw = () => {
   // console.log("started");
-  //clears canvas each frame
-  context.clearRect(0, 0, canvas.width, canvas.height);
 
   //reset the context translate back to default
   context.setTransform(1, 0, 0, 1, 0, 0);
+
+  //clears canvas each frame
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   //clamp the screen to players location
   const camX = -player.locX + canvas.width / 2;
