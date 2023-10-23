@@ -23,8 +23,10 @@ const init = async () => {
 socket.on("tick", (playersArray) => {
   console.log(players);
   players = playersArray;
-  player.locX = players[player.indexInPlayers].playerData.locX;
-  player.locY = players[player.indexInPlayers].playerData.locY;
+  if (players[player.indexInPlayers].playerData) {
+    player.locX = players[player.indexInPlayers].playerData.locX;
+    player.locY = players[player.indexInPlayers].playerData.locY;
+  }
 });
 
 socket.on("orbSwitch", (orbData) => {
