@@ -1,7 +1,7 @@
 const io = require("../server").io;
 const checkForOrbCollisions =
   require("./checkCollisions").checkForOrbCollisions;
-checkForPlayerCollisions =
+const checkForPlayerCollisions =
   require("./checkCollisions").checkForPlayerCollisions;
 
 //============CLASSES=========
@@ -9,6 +9,7 @@ const Player = require("./classes/Player");
 const PlayerConfig = require("./classes/PlayerConfig");
 const PlayerData = require("./classes/PlayerData");
 const Orb = require("./classes/Orb");
+
 //===========================
 
 //make an orbs array that will host all 500 not player orbs
@@ -96,6 +97,18 @@ io.on("connect", (socket) => {
       };
       //emit the orb switch event
       io.to("game").emit("orbSwitch", orbData);
+    }
+
+    //player collisions of tocking player
+    const absorbedData = checkForPlayerCollisions(
+      player.playerData,
+      player.playerConfig,
+      players,
+      playersForUsers,
+      socket.id
+    );
+    if (absorbedData) {
+      io.to("game").emit("playerAbsorbed", absorbedData);
     }
   });
 

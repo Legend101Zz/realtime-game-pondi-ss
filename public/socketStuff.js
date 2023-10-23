@@ -32,3 +32,7 @@ socket.on("orbSwitch", (orbData) => {
 
   orbs.splice(orbData.captureOrbI, 1, orbData.newOrb);
 });
+
+socket.on("playerAbsorbed", (absorbedData) => {
+  console.log("Player who was absorbed", absorbedData);
+});
