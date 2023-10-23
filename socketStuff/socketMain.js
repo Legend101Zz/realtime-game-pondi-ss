@@ -26,7 +26,7 @@ initGame();
 io.on("connect", (socket) => {
   // a player has connected
   socket.on("init", (playerObj, callBack) => {
-    if (players.length > 0) {
+    if (players.length === 0) {
       //Issue an event to every connected socket , that is playing the game , 30 timees per second
       tictokVar = setInterval(() => {
         io.to("game").emit("tick", players); // send the event to the 'game' room

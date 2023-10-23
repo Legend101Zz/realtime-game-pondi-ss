@@ -24,7 +24,7 @@ const draw = () => {
   context.strokeStyle = "rgb(0,255,0)";
   context.stroke(); //draw the border
   orbs.forEach((orby) => {
-    console.log(orby);
+    //console.log(orby);
     context.beginPath();
     context.fillStyle = orby.color;
     context.arc(orby.locX, orby.locY, orby.radius, 0, Math.PI * 2);
@@ -34,7 +34,7 @@ const draw = () => {
   requestAnimationFrame(draw);
 };
 canvas.addEventListener("mousemove", (event) => {
-  console.log(event);
+  //console.log(event);
   const mousePosition = {
     x: event.clientX,
     y: event.clientY,
