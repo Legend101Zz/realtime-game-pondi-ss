@@ -1,5 +1,13 @@
 const socket = io.connect("http://localhost:9000");
 
-socket.on("init", (initData) => {
-  orbs = initData.orbs;
-});
+const init = async () => {
+  const initOrbs = await socket.emitWithAck("init", {
+    playerName: player.name,
+  });
+  orbs = initOrbs;
+  //called inside of start-game click handler
+  console.log(orbs);
+  draw(); // in canvasStuff
+};
+
+socket.on("initReturn", (initData) => {});

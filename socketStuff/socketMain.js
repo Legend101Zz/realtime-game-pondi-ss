@@ -23,18 +23,19 @@ initGame();
 
 io.on("connect", (socket) => {
   // a player has connected
-  // gives game data to new joining player
-  const playerName = "Mrigesh";
-  // make a playerConfig object - the  data specific to this player that only that player needs to know
-  const playerConfig = new PlayerConfig(settings);
-  // make a playerData object - the data specific to htis player that everyone needs to know
-  const playerData = new PlayerData(playerName, settings);
+  socket.on("init", (playerObj, callBack) => {
+    // gives game data to new joining player
+    const playerName = "Mrigesh";
+    // make a playerConfig object - the  data specific to this player that only that player needs to know
+    const playerConfig = new PlayerConfig(settings);
+    // make a playerData object - the data specific to htis player that everyone needs to know
+    const playerData = new PlayerData(playerName, settings);
 
-  // a master player object to house
+    // a master player object to house
+    const player = new Player(socket.id, playerConfig, playerData);
 
-  const player = new Player(socket.id, playerConfig, playerData);
-  socket.emit("init", {
-    orbs,
+    // sends back orbs as acknowledge ment
+    callBack(orbs);
   });
 });
 
