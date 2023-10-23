@@ -16,12 +16,12 @@ const Orb = require("./classes/Orb");
 // every time one is absorbed the server will make a new one
 const orbs = [];
 const settings = {
-  defaultNumberOfOrbs: 500, // number of orbs on the map
+  defaultNumberOfOrbs: 5000, // number of orbs on the map
   defaultSpeed: 6, // player speed
   defaultSize: 6, // default player size
   defaultZoom: 1.5, //as the player gets bigger , zoom needs to go out
-  worldWidth: 500,
-  worldHeight: 500,
+  worldWidth: 5000,
+  worldHeight: 5000,
 };
 let tictokVar;
 const players = [];
