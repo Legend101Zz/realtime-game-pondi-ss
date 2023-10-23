@@ -38,3 +38,7 @@ socket.on("orbSwitch", (orbData) => {
 socket.on("playerAbsorbed", (absorbedData) => {
   console.log("Player who was absorbed", absorbedData);
 });
+
+socket.on("updateLeaderBoard", (leaderBoardArray) => {
+  console.log("LeaderBoard", leaderBoardArray);
+});

@@ -97,6 +97,8 @@ io.on("connect", (socket) => {
       };
       //emit the orb switch event
       io.to("game").emit("orbSwitch", orbData);
+      //updates leaderboard
+      io.to("game").emit("updateLeaderBoard", getLeaderBoard());
     }
 
     //player collisions of tocking player
@@ -124,4 +126,14 @@ function initGame() {
   for (let i = 0; i < settings.defaultNumberOfOrbs; i++) {
     orbs.push(new Orb(settings));
   }
+}
+
+function getLeaderBoard() {
+  const leaderboardArray = players.map((curPlayer) => {
+    return {
+      name: curPlayer.playerData.name,
+      score: curPlayer.playerData.score,
+    };
+  });
+  return leaderboardArray;
 }
