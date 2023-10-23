@@ -130,10 +130,14 @@ function initGame() {
 
 function getLeaderBoard() {
   const leaderboardArray = players.map((curPlayer) => {
-    return {
-      name: curPlayer.playerData.name,
-      score: curPlayer.playerData.score,
-    };
+    if (curPlayer.playerData) {
+      return {
+        name: curPlayer.playerData.name,
+        score: curPlayer.playerData.score,
+      };
+    } else {
+      return {};
+    }
   });
   return leaderboardArray;
 }

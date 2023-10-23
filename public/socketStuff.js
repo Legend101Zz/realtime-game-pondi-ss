@@ -40,7 +40,10 @@ socket.on("playerAbsorbed", (absorbedData) => {
 });
 
 socket.on("updateLeaderBoard", (leaderBoardArray) => {
-  console.log("LeaderBoard", leaderBoardArray);
+  //console.log("LeaderBoard", leaderBoardArray);
+  leaderBoardArray.sort((a, b) => {
+    return b.score - a.score;
+  });
   document.querySelector(".leader-board").innerHTML = "";
   leaderBoardArray.forEach((p) => {
     document.querySelector(
