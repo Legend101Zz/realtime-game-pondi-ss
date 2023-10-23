@@ -19,13 +19,21 @@ const settings = {
   worldHeight: 500,
 };
 
+const players = [];
+
 initGame();
+
+//Issue an event to every connected socket , that is playing the game , 30 timees per second
+setInterval(() => {
+  io.to("game"); // send the event to the 'game' room
+}, 33);
 
 io.on("connect", (socket) => {
   // a player has connected
   socket.on("init", (playerObj, callBack) => {
+    socket.join("game");
     // gives game data to new joining player
-    const playerName = "Mrigesh";
+    const playerName = playerObj.playerName;
     // make a playerConfig object - the  data specific to this player that only that player needs to know
     const playerConfig = new PlayerConfig(settings);
     // make a playerData object - the data specific to htis player that everyone needs to know
@@ -33,7 +41,7 @@ io.on("connect", (socket) => {
 
     // a master player object to house
     const player = new Player(socket.id, playerConfig, playerData);
-
+    players.push(player);
     // sends back orbs as acknowledge ment
     callBack(orbs);
   });
