@@ -1,8 +1,12 @@
 const io = require("../server").io;
+
+//============CLASSES=========
 const Player = require("./classes/Player");
 const PlayerConfig = require("./classes/PlayerConfig");
 const PlayerData = require("./classes/PlayerData");
 const Orb = require("./classes/Orb");
+//===========================
+
 //make an orbs array that will host all 500 not player orbs
 // every time one is absorbed the server will make a new one
 const orbs = [];
@@ -20,12 +24,16 @@ initGame();
 io.on("connect", (socket) => {
   // a player has connected
   // gives game data to new joining player
+  const playerName = "Mrigesh";
+  // make a playerConfig object - the  data specific to this player that only that player needs to know
+  const playerConfig = new PlayerConfig(settings);
+  // make a playerData object - the data specific to htis player that everyone needs to know
+  const playerData = new PlayerData(playerName, settings);
+
+  // a master player object to house
+
+  const player = new Player(socket.id, playerConfig, playerData);
   socket.emit("init", {
-    // make a playerConfig object - the  data specific to this player that only that player needs to know
-
-    // make a playerData object - the data specific to htis player that everyone needs to know
-
-    // a master player object to house
     orbs,
   });
 });
