@@ -1,5 +1,5 @@
-player.locX = Math.floor(500 * Math.random() + 10); //horizontal axis
-player.locY = Math.floor(500 * Math.random() + 10); //vertical axis
+// player.locX = Math.floor(500 * Math.random() + 10); //horizontal axis
+// player.locY = Math.floor(500 * Math.random() + 10); //vertical axis
 
 const draw = () => {
   // console.log("started");
@@ -17,6 +17,10 @@ const draw = () => {
 
   //============DRAW-ALL-PLAYERS=========
   players.forEach((p) => {
+    if (!p.playerData) {
+      //if the playerData doesn't exist, this is an absobred player and we don't draw
+      return;
+    }
     context.beginPath();
     context.fillStyle = p.playerData.color;
     context.arc(
@@ -26,7 +30,7 @@ const draw = () => {
       0,
       2 * Math.PI
     ); //random X anbd Y are center of the arc
-    context.arc(200, 200, 10, 0, 2 * Math.PI);
+    // context.arc(200, 200, 10, 0, 2 * Math.PI);
     context.fill();
     context.lineWidth = 3; // giving width to our circle
     context.strokeStyle = "rgb(0,255,0)";

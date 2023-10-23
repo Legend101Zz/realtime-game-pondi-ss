@@ -20,6 +20,7 @@ const settings = {
 };
 let tictokVar;
 const players = [];
+const playersForUsers = [];
 
 initGame();
 
@@ -30,7 +31,7 @@ io.on("connect", (socket) => {
     if (players.length === 0) {
       //Issue an event to every connected socket , that is playing the game , 30 timees per second
       tictokVar = setInterval(() => {
-        io.to("game").emit("tick", players); // send the event to the 'game' room
+        io.to("game").emit("tick", playersForUsers); // send the event to the 'game' room
       }, 33);
     }
 
@@ -45,11 +46,16 @@ io.on("connect", (socket) => {
     // a master player object to house
     player = new Player(socket.id, playerConfig, playerData);
     players.push(player);
+    playersForUsers.push({ playerData });
     // sends back orbs as acknowledge ment
-    callBack(orbs);
+    callBack({ orbs, indexInPlayers: playersForUsers.length - 1 });
   });
   // The client sent over a tock
   socket.on("tock", (data) => {
+    //a tock has come in before a player s setup because of socket.io keeping the state and trying to reconnect after disconnection
+    if (!player.playerConfig) {
+      return;
+    }
     speed = player.playerConfig.speed;
     const xV = (player.playerConfig.xVector = data.xVector);
     const yV = (player.playerConfig.yVector = data.yVector);
