@@ -10,6 +10,7 @@ const init = async () => {
   draw(); // in canvasStuff
 };
 
-socket.on("tick", (players) => {
+socket.on("tick", (playersArray) => {
   console.log(players);
+  players = playersArray;
 });
