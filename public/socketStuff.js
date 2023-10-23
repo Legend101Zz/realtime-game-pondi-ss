@@ -37,6 +37,13 @@ socket.on("orbSwitch", (orbData) => {
 
 socket.on("playerAbsorbed", (absorbedData) => {
   console.log("Player who was absorbed", absorbedData);
+  document.querySelector(
+    "#game-message"
+  ).innerHTML = `${absorbedData.absorbed} was absorbed by ${absorbedData.absorbedBy}`;
+  document.querySelector("#game-message").style.opacity = 1;
+  window.setTimeout(() => {
+    document.querySelector("#game-message").style.opacity = 0;
+  }, 2000);
 });
 
 socket.on("updateLeaderBoard", (leaderBoardArray) => {
