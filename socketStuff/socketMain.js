@@ -66,15 +66,36 @@ io.on("connect", (socket) => {
 
     if (
       (player.playerData.locX > 5 && xV < 0) ||
-      (player.playerData.locX < 500 && xV > 0)
+      (player.playerData.locX < settings.worldWidth && xV > 0)
     ) {
       player.playerData.locX += speed * xV;
     }
     if (
       (player.playerData.locY > 5 && yV > 0) ||
-      (player.playerData.locY < 500 && yV < 0)
+      (player.playerData.locY < settings.worldHeight && yV < 0)
     ) {
       player.playerData.locY -= speed * yV;
+    }
+
+    //check for the tocking player to hit orbs
+    const captureOrbI = checkForOrbCollisions(
+      player.playerData,
+      player.playerConfig,
+      orbs,
+      settings
+    );
+    //returns null if no collision or the index
+    if (captureOrbI !== null) {
+      //remove the orb and add a new orb
+      orbs.splice(captureOrbI, 1, new Orb(settings));
+
+      //now update the clients with the new orb
+      const orbData = {
+        captureOrbI,
+        newOrb: orbs[captureOrbI],
+      };
+      //emit the orb switch event
+      io.to("game").emit("orbSwitch", orbData);
     }
   });
 

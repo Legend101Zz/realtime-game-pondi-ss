@@ -26,3 +26,9 @@ socket.on("tick", (playersArray) => {
   player.locX = players[player.indexInPlayers].playerData.locX;
   player.locY = players[player.indexInPlayers].playerData.locY;
 });
+
+socket.on("orbSwitch", (orbData) => {
+  // the server tells us that an orb was absorbed and new added so we update the orbs array of client
+
+  orbs.splice(orbData.captureOrbI, 1, orbData.newOrb);
+});
